@@ -44,4 +44,4 @@ persistStore(store, {
 
 ## Thanks
 
-Thanks to Eduard Baun for redux-persist-transform-filter [https://github.com/edy/redux-persist-transform-filter] - on which this implementation is based.
+Thanks to Eduard Baun for [redux-persist-transform-filter](https://github.com/edy/redux-persist-transform-filter) - on which this implementation is based.
