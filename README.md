@@ -2,7 +2,7 @@
 
 Filter transformator for redux-persist supporting immutable.js
 
-## Installation
+## Installation [WIP - not published to NPM yet :-(]
 ```
   npm install redux-persist-transform-filter
 ```
@@ -41,3 +41,7 @@ persistStore(store, {
   ]
 });
 ```
+
+## Thanks
+
+Thanks to Eduard Baun for redux-persist-transform-filter [https://github.com/edy/redux-persist-transform-filter] - on which this implementation is based.
