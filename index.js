@@ -6,28 +6,25 @@ import isString from 'lodash.isString';
 import isUndefined from 'lodash.isUndefined';
 
 
-export type returnType = Map<string, any> | {[key: string]: any};
-
-
-export default (reducerName: string, inboundPaths: string | string[], outboundPaths: string | string[]) => {
+export default function createFilter(reducerName, inboundPaths, outboundPaths) {
     return createTransform(
-        (inboundState: any, key: string) => inboundPaths ? persistFilter(inboundState, inboundPaths) : inboundState,
-        (outboundState: any, key: string) => outboundPaths ? persistFilter(outboundState, outboundPaths) : outboundState,
+        (inboundState, key) => inboundPaths ? persistFilter(inboundState, inboundPaths) : inboundState,
+        (outboundState, key) => outboundPaths ? persistFilter(outboundState, outboundPaths) : outboundState,
         {whitelist: [reducerName]}
     );
 };
 
 
-export function persistFilter(state: any, paths: string | string[] | string[][] = []): returnType {
-    let iterable: boolean  = Iterable.isIterable(state);
-    let subset: returnType = iterable ? Map<string, any>({}) : {};
+export function persistFilter(state, paths = []) {
+    let iterable = Iterable.isIterable(state);
+    let subset   = iterable ? Map({}) : {};
     
-    (isString(paths) ? [paths] : <Array<string>>paths).forEach((path: string | string[]) => {
-        let key: string[] = isString(path) ? <Array<string>>[path] : <Array<string>>path;
-        let value: any    = iterable ? state.getIn(key) : get(state, key);
+    (isString(paths) ? [paths] : paths).forEach((path) => {
+        let key   = isString(path) ? [path] : path;
+        let value = iterable ? state.getIn(key) : get(state, key);
         
         if(!isUndefined(value)) {
-            iterable ? (subset = (<Map<string, any>>subset).setIn(key, value)) : set(subset, key, value);
+            iterable ? (subset = subset.setIn(key, value)) : set(subset, key, value);
         }
     });
 
