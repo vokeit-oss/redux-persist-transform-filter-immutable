@@ -1,49 +1,52 @@
 {
-  "name": "redux-persist-transform-filter-immutable",
-  "version": "0.0.1",
-  "description": "Filter transformator for redux-persist supporting immutable.js",
-  "main": "dist/index.js",
-  "scripts": {
-    "build": "mkdir -p dist && babel index.js -o dist/index.js",
-    "release": "npm build && release-it"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/actra-development/redux-persist-transform-filter-immutable.git"
-  },
-  "keywords": [
-    "react",
-    "redux",
-    "redux-persist",
-    "redux-persist-transform",
-    "transform",
-    "filter",
-    "immutable"
-  ],
-  "author": "Gabriel Schuster <github.com@actra.de>",
-  "license": "MIT",
-  "homepage": "https://github.com/actra-development/redux-persist-transform-filter-immutable#readme",
-  "bugs": {
-    "url": "https://github.com/actra-development/redux-persist-transform-filter-immutable/issues"
-  },
-  "dependencies": {
-    "lodash.get": "^4.4.2",
-    "lodash.set": "^4.3.2",
-    "lodash.isUndefined": "^4.3.2",
-    "immutable": "^3.8.1"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.11.4",
-    "babel-preset-es2015": "^6.13.2",
-    "babel-register": "^6.11.6",
-    "release-it": "^2.4.3",
-    "redux-persist": "^4.0.1"
-  },
-  "peerDependencies": {
-    "redux-persist": "^3.4.0 || ^4.0.1"
-  },
-  "files": [
-    "dist",
-    "index.js"
-  ]
+    "name":             "redux-persist-transform-filter-immutable",
+    "description":      "Filter transformator for redux-persist supporting immutable.js",
+    "license":          "MIT",
+    "version":          "0.0.1",
+    "author":           {
+        "name":  "Gabriel Schuster - actra.development",
+        "email": "opensource@actra.de",
+        "url":   "http://www.actra.de/velopment"
+    },
+    "bugs":             {
+        "url":   "https://github.com/actra-development/actra-ng-i18n-loader/issues",
+        "email": "opensource@actra.de"
+    },
+    "main":             "dist/index.js",
+    "repository":       {
+        "type": "git",
+        "url":  "git@github.com:actra-development/redux-persist-transform-filter-immutable.git"
+    },
+    "homepage":         "https://github.com/actra-development/redux-persist-transform-filter-immutable#readme",
+    "scripts":          {
+        "build":   "mkdir -p dist && babel index.js -o dist/index.js"
+    },
+    "dependencies":     {
+        "lodash.get":         "^4.4.2",
+        "lodash.set":         "^4.3.2",
+        "lodash.isUndefined": "^4.3.2",
+        "immutable":          "^3.8.1"
+    },
+    "devDependencies":  {
+        "babel-cli":           "^6.11.4",
+        "babel-preset-es2015": "^6.13.2",
+        "babel-register":      "^6.11.6",
+        "redux-persist":       "^4.0.1"
+    },
+    "peerDependencies": {
+        "redux-persist": "^3.4.0 || ^4.0.1"
+    },
+    "keywords":         [
+        "react",
+        "redux",
+        "redux-persist",
+        "redux-persist-transform",
+        "transform",
+        "filter",
+        "immutable"
+    ],
+    "files":            [
+        "dist",
+        "index.js"
+    ]
 }

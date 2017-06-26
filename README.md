@@ -27,7 +27,7 @@ const loadSubsetFilter = createFilter(
 
 // saving a subset and loading a different subset is possible
 // but doesn't make much sense because you'd load an empty state
-const saveAndloadSubsetFilter = createFilter(
+const saveAndLoadSubsetFilter = createFilter(
   'myReducerThree',
   ['one', 'two']
   ['three', 'four']
@@ -37,7 +37,7 @@ persistStore(store, {
   transforms: [
     saveSubsetFilter,
     loadSubsetFilter,
-    saveAndloadSubsetFilter,
+    saveAndLoadSubsetFilter,
   ]
 });
 ```
