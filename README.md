@@ -2,15 +2,15 @@
 
 Filter transformator for redux-persist supporting immutable.js
 
-## Installation [WIP - not published to NPM yet :-(]
+## Installation
 ```
-  npm install redux-persist-transform-filter
+  npm install @actra-development/redux-persist-transform-filter-immutable
 ```
 
 ## Usage
 
 ```js
-import createFilter from 'redux-persist-transform-filter-immutable';
+import createFilter from '@actra-development/redux-persist-transform-filter-immutable';
 
 // you want to store only a subset of your state of reducer one
 const saveSubsetFilter = createFilter(

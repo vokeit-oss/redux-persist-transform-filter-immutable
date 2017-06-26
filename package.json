@@ -2,7 +2,7 @@
     "name":             "@actra-development/redux-persist-transform-filter-immutable",
     "description":      "Filter transformator for redux-persist supporting immutable.js",
     "license":          "MIT",
-    "version":          "0.0.1",
+    "version":          "0.0.2",
     "author":           {
         "name":  "Gabriel Schuster - actra.development",
         "email": "opensource@actra.de",
