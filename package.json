@@ -1,6 +1,15 @@
 {
-    "name":             "@actra-development/redux-persist-transform-filter-immutable",
+    "name":             "@actra-development-oss/redux-persist-transform-filter-immutable",
     "description":      "Filter transformator for redux-persist supporting immutable.js",
+    "keywords":         [
+        "react",
+        "redux",
+        "redux-persist",
+        "redux-persist-transform",
+        "transform",
+        "filter",
+        "immutable"
+    ],
     "license":          "MIT",
     "version":          "0.1.0",
     "author":           {
@@ -8,26 +17,18 @@
         "email": "opensource@actra.de",
         "url":   "http://www.actra.de/velopment"
     },
-    "bugs":             {
-        "url":   "https://github.com/actra-development/actra-ng-i18n-loader/issues",
-        "email": "opensource@actra.de"
-    },
-    "main":             "dist/index.js",
+    "homepage":         "https://github.com/actra-development-oss/redux-persist-transform-filter-immutable#readme",
     "repository":       {
         "type": "git",
-        "url":  "git@github.com:actra-development/redux-persist-transform-filter-immutable.git"
+        "url":  "git@github.com:actra-development-oss/redux-persist-transform-filter-immutable.git"
+    },
+    "bugs":             {
+        "url":   "https://github.com/actra-development-oss/redux-persist-transform-filter-immutable/issues",
+        "email": "opensource@actra.de"
     },
     "publishConfig":    {
         "registry": "https://registry.npmjs.com/",
         "access":   "public"
-    },
-    "homepage":         "https://github.com/actra-development/redux-persist-transform-filter-immutable#readme",
-    "scripts":          {
-        "build": "yarn run mkdirp dist && yarn run babel -- index.js -o dist/index.js",
-        
-        "babel":  "babel",
-        "mkdirp": "mkdirp",
-        "rimraf": "rimraf"
     },
     "dependencies":     {
         "immutable":          "^3.8.1",
@@ -51,16 +52,15 @@
         "immutable":     "^3.8.1",
         "redux-persist": "^3.4.0 || ^4.0.1"
     },
-    "keywords":         [
-        "react",
-        "redux",
-        "redux-persist",
-        "redux-persist-transform",
-        "transform",
-        "filter",
-        "immutable"
-    ],
     "files":            [
         "dist"
-    ]
+    ],
+    "main":             "dist/index.js",
+    "scripts":          {
+        "build": "yarn run mkdirp dist && yarn run babel -- index.js -o dist/index.js",
+        
+        "babel":  "babel",
+        "mkdirp": "mkdirp",
+        "rimraf": "rimraf"
+    }
 }
