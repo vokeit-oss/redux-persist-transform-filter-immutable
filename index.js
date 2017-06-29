@@ -31,7 +31,9 @@ export function createBlacklistFilter(reducerName, inboundPaths, outboundPaths) 
 
 
 function filterObject({path, filterFunction = () => true}, state) {
-    return pickBy(get(state, path), filterFunction);
+    let value = get(state, path);
+    
+    return Array.isArray(value) ? value.filter(filterFunction) : pickBy(value, filterFunction);
 }
 
 
@@ -54,9 +56,17 @@ export function persistFilter(state, paths = [], transformType = 'whitelist') {
                 (subset = blacklist ? subset.deleteIn(key) : subset.setIn(key, value))
                 :
                 (blacklist ?
-                    (keyIsObject ? forIn(value, (iterateeValue, iterateeKey) => { unset(subset, `${key.path}.${iterateeKey}`) })
+                    (keyIsObject ?
+                        (Array.isArray(value) ?
+                            set(subset, key.path, get(subset, key.path).filter((x) => false))
+                            :
+                            forIn(value, (iterateeValue, iterateeKey) => { unset(subset, `${key.path}.${iterateeKey}`) })
+                        )
+                        :
+                        unset(subset, path)
+                    )
                     :
-                    unset(subset, path)) : set(subset, keyIsObject ? key.path : key, value)
+                    set(subset, keyIsObject ? key.path : key, value)
                 );
         }
     });
