@@ -2,9 +2,11 @@ import { Iterable, Map } from 'immutable';
 import { createTransform } from 'redux-persist';
 import get from 'lodash.get';
 import includes from 'lodash.includes';
+import isEmpty from 'lodash.isempty';
 import isObject from 'lodash.isobject';
 import isString from 'lodash.isstring';
 import isUndefined from 'lodash.isundefined';
+import pickBy from 'lodash.pickBy';
 import set from 'lodash.set';
 import unset from 'lodash.unset';
 
@@ -44,6 +46,29 @@ export function persistFilter(state, paths = [], transformType = 'whitelist') {
     
     let blacklist = ('blacklist' === transformType);
     let iterable  = Iterable.isIterable(state);
+    let subset    = iterable ? Map({}) : {};
+    paths         = isString(paths) ? [paths] : paths;
+    
+    if(transformType === 'whitelist') {
+		paths.forEach((path: any) => {
+			if(_.isObject(path) && !Array.isArray(path)) {
+				let value = iterable ? state.getIn(path) : filterObject(path, state);
+
+				if(!isEmpty(value)) {
+					set(subset, path.path, value);
+				}
+			}
+            else {
+				let value = iterable ? state.getIn(path) : get(state, path);
+
+				if (typeof value !== 'undefined') {
+					set(subset, path, value);
+				}
+			}
+		});
+	}
+    
+    
     let subset    = iterable ? Map(blacklist ? state : {}) : (blacklist ? state : {});
     
     (isString(paths) ? [paths] : paths).forEach((path) => {
