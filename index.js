@@ -52,7 +52,7 @@ export function persistFilter(state, paths = [], transformType = 'whitelist') {
     
     if('whitelist' === transformType) {
 		paths.forEach((path) => {
-			if(_.isObject(path) && !Array.isArray(path) && key.hasOwnProperty('path')) {
+			if(isObject(path) && !Array.isArray(path) && key.hasOwnProperty('path')) {
 				let value = filterObject(path, state, iterable);
 
 				if(!isEmpty(value)) {
@@ -70,7 +70,7 @@ export function persistFilter(state, paths = [], transformType = 'whitelist') {
 	}
     else if('blacklist' === transformType) {
         paths.forEach((path) => {
-            if(_.isObject(path) && !Array.isArray(path) && key.hasOwnProperty('path')) {
+            if(isObject(path) && !Array.isArray(path) && key.hasOwnProperty('path')) {
                 let value = filterObject(path, state, iterable);
                 
                 if(!isEmpty(value)) {
