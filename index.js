@@ -7,7 +7,7 @@ import isEmpty from 'lodash.isempty';
 import isObject from 'lodash.isobject';
 import isString from 'lodash.isstring';
 import isUndefined from 'lodash.isundefined';
-import pickBy from 'lodash.pickBy';
+import pickBy from 'lodash.pickby';
 import set from 'lodash.set';
 import unset from 'lodash.unset';
 
