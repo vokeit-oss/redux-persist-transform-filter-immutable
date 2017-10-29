@@ -34,7 +34,7 @@ export function createBlacklistFilter(reducerName, inboundPaths, outboundPaths) 
 
 
 function filterObject({path, filterFunction = () => true}, state, iterable) {
-    let value = iterable ? state.getIn(path) : get(state, path);
+    const value = iterable ? state.getIn(path) : get(state, path);
     
     return Array.isArray(value) ? value.filter(filterFunction) : pickBy(value, filterFunction);
 }
@@ -45,55 +45,59 @@ export function persistFilter(state, paths = [], transformType = 'whitelist') {
         return state;
     }
     
-    let blacklist = ('blacklist' === transformType);
-    let iterable  = Iterable.isIterable(state);
-    let subset    = iterable ? Map(blacklist ? state : {}) : (blacklist ? Object.assign({}, state) : {});
-    paths         = isString(paths) ? [paths] : paths;
+    const blacklist = ('blacklist' === transformType);
+    const iterable  = Iterable.isIterable(state);
+    const subset    = iterable ? Map(blacklist ? state : {}) : (blacklist ? Object.assign({}, state) : {});
+    paths           = isString(paths) ? [paths] : paths;
     
-    if('whitelist' === transformType) {
-		paths.forEach((path) => {
-			if(isObject(path) && !Array.isArray(path) && key.hasOwnProperty('path')) {
-				let value = filterObject(path, state, iterable);
-
-				if(!isEmpty(value)) {
-					iterable ? subset.setIn(path, value) : set(subset, path.path, value);
-				}
-			}
-            else {
-				let value = iterable ? state.getIn(path) : get(state, path);
-
-				if(!isUndefined(value)) {
-				    iterable ? subset.setIn(path, value) : set(subset, path, value);
-				}
-			}
-		});
-	}
-    else if('blacklist' === transformType) {
+    if(!blacklist) {
         paths.forEach((path) => {
-            if(isObject(path) && !Array.isArray(path) && key.hasOwnProperty('path')) {
-                let value = filterObject(path, state, iterable);
-                
-                if(!isEmpty(value)) {
-                    if(Array.isArray(value)) {
-                        iterable ? subset.setIn(path.path, subset.getIn(path.path).filter((x) => false)) : set(subset, path.path, get(subset, path.path).filter((x) => false));
-                    }
-                    else {
-                        forIn(value, (value, key) => {
-                            iterable ? subset.deleteIn(`${path.path}[${key}]`) : unset(subset, `${path.path}[${key}]`);
-                        });
+            if(isObject(path) && !Array.isArray(path)) {
+                if(path.hasOwnProperty('path')) {
+                    const value = filterObject(path, state, iterable);
+                    
+                    if(!isEmpty(value)) {
+                        iterable ? subset.setIn(path, value) : set(subset, path.path, value);
                     }
                 }
             }
             else {
-                let value = iterable ? state.getIn(path) : get(state, path);
-
+                const value = iterable ? state.getIn(path) : get(state, path);
+                
+                if(!isUndefined(value)) {
+                    iterable ? subset.setIn(path, value) : set(subset, path, value);
+                }
+            }
+        });
+    }
+    else {
+        paths.forEach((path) => {
+            if(isObject(path) && !Array.isArray(path)) {
+                if(path.hasOwnProperty('path')) {
+                    const value = filterObject(path, state, iterable);
+                    
+                    if(!isEmpty(value)) {
+                        if(Array.isArray(value)) {
+                            iterable ? subset.setIn(path.path, subset.getIn(path.path).filter((x) => false)) : set(subset, path.path, get(subset, path.path).filter((x) => false));
+                        }
+                        else {
+                            forIn(value, (value, key) => {
+                                iterable ? subset.deleteIn(`${path.path}[${key}]`) : unset(subset, `${path.path}[${key}]`);
+                            });
+                        }
+                    }
+                }
+            }
+            else {
+                const value = iterable ? state.getIn(path) : get(state, path);
+                
                 if(!isUndefined(value)) {
                     iterable ? subset.deleteIn(path) : unset(subset, path);
                 }
             }
         });
     }
-
+    
     return subset;
 }
 

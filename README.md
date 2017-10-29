@@ -1,5 +1,8 @@
 # redux-persist-transform-filter-immutable
 
+[![npm](https://img.shields.io/npm/v/@actra-development-oss/redux-persist-transform-filter-immutable.svg?maxAge=2592000&style=flat-square)](https://www.npmjs.com/package/redux-persist-transform-filter-immutable)
+[![Build Status](https://travis-ci.org/actra-development-oss/redux-persist-transform-filter-immutable.svg?branch=master)](https://travis-ci.org/actra-development-oss/redux-persist-transform-filter-immutable)
+
 Filter transformator for redux-persist supporting immutable.js
 
 ## Installation
@@ -10,35 +13,45 @@ Filter transformator for redux-persist supporting immutable.js
 ## Usage
 
 ```js
-import createFilter from '@actra-development-oss/redux-persist-transform-filter-immutable';
+import { createFilter, createBlacklistFilter } from 'redux-persist-transform-filter-immutable';
+
+// this works too:
+import createFilter, { createBlacklistFilter } from 'redux-persist-transform-filter-immutable';
 
 // you want to store only a subset of your state of reducer one
 const saveSubsetFilter = createFilter(
-  'myReducerOne',
-  ['keyYouWantToSave1', 'keyYouWantToSave2']
+    'myReducerOne',
+    ['keyYouWantToSave1', 'keyYouWantToSave2']
+);
+
+// you want to remove some keys before you save
+const saveSubsetBlacklistFilter = createBlacklistFilter(
+    'myReducerTwo',
+    ['keyYouDontWantToSave1', 'keyYouDontWantToSave2']
 );
 
 // you want to load only a subset of your state of reducer two
 const loadSubsetFilter = createFilter(
-  'myReducerTwo',
-  null,
-  ['keyYouWantToLoad1', 'keyYouWantToLoad2']
+    'myReducerThree',
+    null,
+    ['keyYouWantToLoad1', 'keyYouWantToLoad2']
 );
 
 // saving a subset and loading a different subset is possible
 // but doesn't make much sense because you'd load an empty state
-const saveAndLoadSubsetFilter = createFilter(
-  'myReducerThree',
-  ['one', 'two']
-  ['three', 'four']
+const saveAndloadSubsetFilter = createFilter(
+    'myReducerFour',
+    ['one', 'two']
+    ['three', 'four']
 );
 
 persistStore(store, {
-  transforms: [
-    saveSubsetFilter,
-    loadSubsetFilter,
-    saveAndLoadSubsetFilter,
-  ]
+    transforms: [
+        saveSubsetFilter,
+        saveSubsetBlacklistFilter,
+        loadSubsetFilter,
+        saveAndloadSubsetFilter,
+    ]
 });
 ```
 

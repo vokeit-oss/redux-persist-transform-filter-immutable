@@ -11,7 +11,7 @@
         "immutable"
     ],
     "license":          "MIT",
-    "version":          "0.1.5",
+    "version":          "0.1.6",
     "author":           {
         "name":  "Gabriel Schuster - actra.development",
         "email": "opensource@actra.de",
@@ -45,25 +45,32 @@
         "redux-persist":      "^4.10.1"
     },
     "devDependencies":  {
-        "babel-cli":           "^6.11.4",
-        "babel-preset-es2015": "^6.13.2",
-        "babel-register":      "^6.11.6",
-        "mkdirp":              "0.5.1",
-        "rimraf":              "2.6.1"
+        "babel-cli":           "^6.26.0",
+        "babel-preset-es2015": "^6.24.1",
+        "babel-register":      "^6.26.0",
+        "chai":                "^4.1.2",
+        "mocha":               "^4.0.1",
+        "mkdirp":              "^0.5.1",
+        "redux":               "^3.7.2",
+        "rimraf":              "^2.6.1"
     },
     "peerDependencies": {
         "immutable":     "^3.8.2",
-        "redux-persist": "^3.4.0 || ^4.0.1"
+        "redux":         "^3.7.2",
+        "redux-persist": "^3.4.0 || ^4.0.1 || ^5"
     },
     "files":            [
         "dist"
     ],
     "main":             "dist/index.js",
     "scripts":          {
-        "build": "yarn run mkdirp dist && yarn run babel index.js -o dist/index.js",
+        "test":    "npm run-script mocha -- --require babel-register spec.js",
+        "build":   "npm run-script rimraf -- ./dist && npm run-script mkdirp -- dist && npm run-script babel -- index.js -o dist/index.js",
+        "release": "npm run-script test && npm run-script build && npm publish",
         
-        "babel":  "babel",
-        "mkdirp": "mkdirp",
-        "rimraf": "rimraf"
+        "babel":  "./node_modules/.bin/babel",
+        "mkdirp": "./node_modules/.bin/mkdirp",
+        "mocha":  "./node_modules/.bin/mocha",
+        "rimraf": "./node_modules/.bin/rimraf"
     }
 }
