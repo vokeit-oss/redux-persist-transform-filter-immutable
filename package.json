@@ -66,7 +66,7 @@
     "scripts":          {
         "test":    "npm run-script mocha -- --require babel-register spec.js",
         "build":   "npm run-script rimraf -- ./dist && npm run-script mkdirp -- dist && npm run-script babel -- index.js -o dist/index.js",
-        "release": "npm run-script test && npm run-script build && npm publish",
+        "release": "npm run-script test && npm run-script build && npm publish --access public",
         
         "babel":  "./node_modules/.bin/babel",
         "mkdirp": "./node_modules/.bin/mkdirp",

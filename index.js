@@ -47,7 +47,7 @@ export function persistFilter(state, paths = [], transformType = 'whitelist') {
     
     const blacklist = ('blacklist' === transformType);
     const iterable  = Iterable.isIterable(state);
-    const subset    = iterable ? Map(blacklist ? state : {}) : (blacklist ? Object.assign({}, state) : {});
+    let subset      = iterable ? Map(blacklist ? state : {}) : (blacklist ? Object.assign({}, state) : {});
     paths           = isString(paths) ? [paths] : paths;
     
     if(!blacklist) {
