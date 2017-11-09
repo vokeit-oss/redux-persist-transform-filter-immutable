@@ -1,5 +1,4 @@
 import { Iterable, Map } from 'immutable';
-import { createTransform } from 'redux-persist';
 import forIn from 'lodash.forin';
 import get from 'lodash.get';
 import includes from 'lodash.includes';
@@ -10,6 +9,31 @@ import isUndefined from 'lodash.isundefined';
 import pickBy from 'lodash.pickby';
 import set from 'lodash.set';
 import unset from 'lodash.unset';
+
+
+export function createTransform(dataToStorage, dataFromStorage, config = {}) {
+    const whitelist = isObject(config) && Array.isArray(config.whitelist) ? config.whitelist : null;
+    const blacklist = isObject(config) && Array.isArray(config.blacklist) ? config.blacklist : null;
+    
+    function whitelistBlacklistCheck(key) {
+        return (whitelist && !includes(whitelist, key)) || (blacklist && includes(blacklist, key));
+    }
+    
+    function transformDataToStorage(state, key) {
+        return !whitelistBlacklistCheck(key) && dataToStorage ? dataToStorage(state, key) : state;
+    }
+    
+    function transformDataFromStorage(state, key) {
+        return !whitelistBlacklistCheck(key) && dataFromStorage ? dataFromStorage(state, key) : state;
+    }
+    
+    return {
+        in:                       transformDataToStorage,
+        out:                      transformDataFromStorage,
+        transformDataToStorage:   transformDataToStorage,
+        transformDataFromStorage: transformDataFromStorage
+    }
+}
 
 
 export function createFilter(reducerName, inboundPaths, outboundPaths, transformType = 'whitelist') {

@@ -58,3 +58,4 @@ persistStore(store, {
 ## Thanks
 
 Thanks to Eduard Baun for [redux-persist-transform-filter](https://github.com/edy/redux-persist-transform-filter) - on which this implementation is based.
+Thanks to Zack Story for [redux-persist](https://github.com/rt2zz/redux-persist) from which I took createTransform().

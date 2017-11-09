@@ -11,7 +11,7 @@
         "immutable"
     ],
     "license":          "MIT",
-    "version":          "0.1.7",
+    "version":          "0.2.0",
     "author":           {
         "name":  "Gabriel Schuster - actra.development",
         "email": "opensource@actra.de",
@@ -41,8 +41,7 @@
         "lodash.isundefined": "^3.0.1",
         "lodash.pickby":      "^4.6.0",
         "lodash.set":         "^4.3.2",
-        "lodash.unset":       "^4.5.2",
-        "redux-persist":      "^4.10.1"
+        "lodash.unset":       "^4.5.2"
     },
     "devDependencies":  {
         "babel-cli":           "^6.26.0",
@@ -55,9 +54,7 @@
         "rimraf":              "^2.6.1"
     },
     "peerDependencies": {
-        "immutable":     "^3.8.2",
-        "redux":         "^3.7.2",
-        "redux-persist": "^3.4.0 || ^4.0.1 || ^5"
+        "immutable": "^3.8.2"
     },
     "files":            [
         "dist"

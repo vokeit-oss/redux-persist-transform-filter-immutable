@@ -76,30 +76,36 @@ describe('redux-persist-transform-filter', () => {
             expect(createFilter).to.be.a('function');
         });
 
-        it('should return an object with in and out functions', () => {
+        it('should return an object with in, out, transformDataToStorage and transformDataFromStorage functions', () => {
             const myFilter = createFilter('reducerName', 'a.b', 'a.c');
             expect(myFilter).to.be.an('object');
-            expect(myFilter).to.have.all.keys(['in', 'out']);
+            expect(myFilter).to.have.all.keys(['in', 'out', 'transformDataToStorage', 'transformDataFromStorage']);
             expect(myFilter.in).to.be.a('function');
             expect(myFilter.out).to.be.a('function');
+            expect(myFilter.transformDataToStorage).to.be.a('function');
+            expect(myFilter.transformDataFromStorage).to.be.a('function');
         });
 
         it('should save a subset', () => {
             const myFilter = createFilter('reducerName', ['a.b', 'd']);
 
             // simulates a save
-            const result = myFilter.in({a: {b:'b', c:'c'}, d:'d'}, 'reducerName');
+            const result1 = myFilter.transformDataToStorage({a: {b:'b', c:'c'}, d:'d'}, 'reducerName');
+            const result2 = myFilter.in({a: {b:'b', c:'c'}, d:'d'}, 'reducerName');
 
-            expect(result).to.deep.equal({a: {b:'b'}, d:'d'});
+            expect(result1).to.deep.equal({a: {b:'b'}, d:'d'});
+            expect(result2).to.deep.equal(result1);
         });
 
         it('should load a subset', () => {
             const myFilter = createFilter('reducerName', undefined, ['a.b', 'd']);
 
             // simulates a load
-            const result = myFilter.out({a: {b:'b', c:'c'}, d:'d'}, 'reducerName');
+            const result1 = myFilter.transformDataFromStorage({a: {b:'b', c:'c'}, d:'d'}, 'reducerName');
+            const result2 = myFilter.out({a: {b:'b', c:'c'}, d:'d'}, 'reducerName');
 
-            expect(result).to.deep.equal({a: {b:'b'}, d:'d'});
+            expect(result1).to.deep.equal({a: {b:'b'}, d:'d'});
+            expect(result2).to.deep.equal(result1);
         });
     });
 
@@ -108,31 +114,37 @@ describe('redux-persist-transform-filter', () => {
             expect(createWhitelistFilter).to.be.a('function');
         });
 
-        it('should return an object with in and out functions', () => {
+        it('should return an object with in, out, transformDataToStorage and transformDataFromStorage functions', () => {
             const myFilter = createWhitelistFilter('reducerName', 'a.b', 'a.c');
 
             expect(myFilter).to.be.an('object');
-            expect(myFilter).to.have.all.keys(['in', 'out']);
+            expect(myFilter).to.have.all.keys(['in', 'out', 'transformDataToStorage', 'transformDataFromStorage']);
             expect(myFilter.in).to.be.a('function');
             expect(myFilter.out).to.be.a('function');
+            expect(myFilter.transformDataToStorage).to.be.a('function');
+            expect(myFilter.transformDataFromStorage).to.be.a('function');
         });
 
         it('should save a subset', () => {
             const myFilter = createWhitelistFilter('reducerName', ['a.b', 'd']);
 
             // simulates a save
-            const result = myFilter.in({a: {b:'b', c:'c'}, d:'d'}, 'reducerName');
+            const result1 = myFilter.transformDataToStorage({a: {b:'b', c:'c'}, d:'d'}, 'reducerName');
+            const result2 = myFilter.in({a: {b:'b', c:'c'}, d:'d'}, 'reducerName');
 
-            expect(result).to.deep.equal({a: {b:'b'}, d:'d'});
+            expect(result1).to.deep.equal({a: {b:'b'}, d:'d'});
+            expect(result2).to.deep.equal(result1);
         });
 
         it('should load a subset', () => {
             const myFilter = createWhitelistFilter('reducerName', undefined, ['a.b', 'd']);
 
             // simulates a load
-            const result = myFilter.out({a: {b:'b', c:'c'}, d:'d'}, 'reducerName');
+            const result1 = myFilter.transformDataFromStorage({a: {b:'b', c:'c'}, d:'d'}, 'reducerName');
+            const result2 = myFilter.out({a: {b:'b', c:'c'}, d:'d'}, 'reducerName');
 
-            expect(result).to.deep.equal({a: {b:'b'}, d:'d'});
+            expect(result1).to.deep.equal({a: {b:'b'}, d:'d'});
+            expect(result2).to.deep.equal(result1);
         });
     });
 
@@ -141,30 +153,36 @@ describe('redux-persist-transform-filter', () => {
             expect(createBlacklistFilter).to.be.a('function');
         });
 
-        it('should return an object with in and out functions', () => {
+        it('should return an object with in, out, transformDataToStorage and transformDataFromStorage functions', () => {
             const myFilter = createBlacklistFilter('reducerName', 'a.b', 'a.c');
             expect(myFilter).to.be.an('object');
-            expect(myFilter).to.have.all.keys(['in', 'out']);
+            expect(myFilter).to.have.all.keys(['in', 'out', 'transformDataToStorage', 'transformDataFromStorage']);
             expect(myFilter.in).to.be.a('function');
             expect(myFilter.out).to.be.a('function');
+            expect(myFilter.transformDataToStorage).to.be.a('function');
+            expect(myFilter.transformDataFromStorage).to.be.a('function');
         });
 
         it('should save a subset', () => {
             const myFilter = createBlacklistFilter('reducerName', ['a.b', 'd']);
 
             // simulates a save
-            const result = myFilter.in({a: {b:'b', c:'c'}, d:'d'}, 'reducerName');
+            const result1 = myFilter.transformDataToStorage({a: {b:'b', c:'c'}, d:'d'}, 'reducerName');
+            const result2 = myFilter.in({a: {b:'b', c:'c'}, d:'d'}, 'reducerName');
 
-            expect(result).to.deep.equal({a: {c:'c'}});
+            expect(result1).to.deep.equal({a: {c:'c'}});
+            expect(result2).to.deep.equal(result1);
         });
 
         it('should load a subset', () => {
             const myFilter = createBlacklistFilter('reducerName', undefined, ['a.b', 'd']);
 
             // simulates a load
-            const result = myFilter.out({a: {b:'b', c:'c'}, d:'d'}, 'reducerName');
+            const result1 = myFilter.transformDataFromStorage({a: {b:'b', c:'c'}, d:'d'}, 'reducerName');
+            const result2 = myFilter.out({a: {b:'b', c:'c'}, d:'d'}, 'reducerName');
 
-            expect(result).to.deep.equal({a: {c:'c'}});
+            expect(result1).to.deep.equal({a: {c:'c'}});
+            expect(result2).to.deep.equal(result1);
         });
     });
 });
