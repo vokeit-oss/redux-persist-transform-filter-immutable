@@ -60,7 +60,7 @@ export function createBlacklistFilter(reducerName, inboundPaths, outboundPaths) 
 function filterObject({path, filterFunction = () => true}, state, iterable) {
     const value = iterable ? state.getIn(path) : get(state, path);
     
-    return Array.isArray(value) ? value.filter(filterFunction) : pickBy(value, filterFunction);
+    return (Array.isArray(value) || Iterable.isIterable(value)) ? value.filter(filterFunction) : pickBy(value, filterFunction);
 }
 
 
