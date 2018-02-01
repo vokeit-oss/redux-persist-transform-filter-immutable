@@ -62,7 +62,7 @@ describe('redux-persist-transform-filter', () => {
             expect(persistFilter(JSON.parse(JSON.stringify(store)), [{ path: 'a', filterFunction: item => item.x }], 'blacklist')).to.deep.equal({a:{'id3':{x:false, b:'bbb'}}, d:'d'});
             expect(persistFilter(JSON.parse(JSON.stringify(store)), [{ path: 'a', filterFunction: item => item.b === 'bb' }], 'blacklist')).to.deep.equal({a:{'id1':{x:true, b:'b'}, 'id3':{x:false, b:'bbb'}}, d:'d'});
         });
-        
+
         it('should return a subset, given an object that contains a path and a filterFunction to reduce array', () => {
             const store = {a:[1,2,3], b:'b'};
             expect(persistFilter(JSON.parse(JSON.stringify(store)), [{ path: 'a', filterFunction: () => true }], 'blacklist')).to.deep.equal({a:[], b:'b'});
@@ -78,6 +78,16 @@ describe('redux-persist-transform-filter', () => {
 
         it('should return an object with in, out, transformDataToStorage and transformDataFromStorage functions', () => {
             const myFilter = createFilter('reducerName', 'a.b', 'a.c');
+            expect(myFilter).to.be.an('object');
+            expect(myFilter).to.have.all.keys(['in', 'out', 'transformDataToStorage', 'transformDataFromStorage']);
+            expect(myFilter.in).to.be.a('function');
+            expect(myFilter.out).to.be.a('function');
+            expect(myFilter.transformDataToStorage).to.be.a('function');
+            expect(myFilter.transformDataFromStorage).to.be.a('function');
+        });
+
+        it('reducersName as array - should return an object with in, out, transformDataToStorage and transformDataFromStorage functions', () => {
+            const myFilter = createFilter(['reducerName', 'otherReducerName'], 'a.b', 'a.c');
             expect(myFilter).to.be.an('object');
             expect(myFilter).to.have.all.keys(['in', 'out', 'transformDataToStorage', 'transformDataFromStorage']);
             expect(myFilter.in).to.be.a('function');
