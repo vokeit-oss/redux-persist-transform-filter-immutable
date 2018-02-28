@@ -1,4 +1,4 @@
-declare module "redux-persist-transform-filter-immutable" {
+declare module "@actra-development-oss/redux-persist-transform-filter-immutable" {
     import { Transform } from "redux-persist";
     
     
