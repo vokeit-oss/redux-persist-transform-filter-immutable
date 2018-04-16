@@ -42,7 +42,7 @@ export function createFilter(reducerName, inboundPaths, outboundPaths, transform
     return createTransform(
         (inboundState, key) => inboundPaths ? persistFilter(inboundState, inboundPaths, transformType) : inboundState,
         (outboundState, key) => outboundPaths ? persistFilter(outboundState, outboundPaths, transformType) : outboundState,
-        {whitelist:  typeof reducerName === "string"?  [reducerName]: reducerName}
+        {[transformType]: 'string' === typeof reducerName ?  [reducerName] : reducerName}
     );
 };
 
