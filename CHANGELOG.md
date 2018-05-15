@@ -1,3 +1,7 @@
+### v1.0.0
+- Upgraded to immutable 4
+- Upgraded to redux 4
+
 ### v0.2.1
 - Fix filterObject() to apply filter() on immutables instead of using lodash.pickBy()
 

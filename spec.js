@@ -177,10 +177,10 @@ describe('redux-persist-transform-filter', () => {
             const myFilter = createBlacklistFilter('reducerName', ['a.b', 'd']);
 
             // simulates a save
-            const result1 = myFilter.transformDataToStorage({a: {b:'b', c:'c'}, d:'d'}, 'reducerName');
-            const result2 = myFilter.in({a: {b:'b', c:'c'}, d:'d'}, 'reducerName');
+            const result1 = myFilter.transformDataToStorage({a: {b: 'b', c: 'c'}, d: 'd'}, 'reducerName');
+            const result2 = myFilter.in({a: {b: 'b', c: 'c'}, d: 'd'}, 'reducerName');
 
-            expect(result1).to.deep.equal({a: {c:'c'}});
+            expect(result1).to.deep.equal({a: {c: 'c'}});
             expect(result2).to.deep.equal(result1);
         });
 
@@ -188,10 +188,10 @@ describe('redux-persist-transform-filter', () => {
             const myFilter = createBlacklistFilter('reducerName', undefined, ['a.b', 'd']);
 
             // simulates a load
-            const result1 = myFilter.transformDataFromStorage({a: {b:'b', c:'c'}, d:'d'}, 'reducerName');
-            const result2 = myFilter.out({a: {b:'b', c:'c'}, d:'d'}, 'reducerName');
+            const result1 = myFilter.transformDataFromStorage({a: {b: 'b', c: 'c'}, d: 'd'}, 'reducerName');
+            const result2 = myFilter.out({a: {b: 'b', c: 'c'}, d: 'd'}, 'reducerName');
 
-            expect(result1).to.deep.equal({a: {c:'c'}});
+            expect(result1).to.deep.equal({a: {c: 'c'}});
             expect(result2).to.deep.equal(result1);
         });
     });

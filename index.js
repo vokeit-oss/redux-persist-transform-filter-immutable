@@ -16,7 +16,7 @@ export function createTransform(dataToStorage, dataFromStorage, config = {}) {
     const blacklist = isObject(config) && Array.isArray(config.blacklist) ? config.blacklist : null;
     
     function whitelistBlacklistCheck(key) {
-        return (whitelist && !includes(whitelist, key)) || (blacklist && includes(blacklist, key));
+        return (whitelist && !includes(whitelist, key)) || (blacklist && !includes(blacklist, key));
     }
     
     function transformDataToStorage(state, key) {
