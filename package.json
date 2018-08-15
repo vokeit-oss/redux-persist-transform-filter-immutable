@@ -31,17 +31,17 @@
         "access": "public"
     },
     "dependencies": {
-        "immutable": "^4.0.0-rc.9",
-        "lodash.forin": "^4.4.0",
-        "lodash.get": "^4.4.2",
-        "lodash.includes": "^4.3.0",
-        "lodash.isempty": "^4.4.0",
-        "lodash.isobject": "^3.0.2",
-        "lodash.isstring": "^4.0.1",
-        "lodash.isundefined": "^3.0.1",
-        "lodash.pickby": "^4.6.0",
-        "lodash.set": "^4.3.2",
-        "lodash.unset": "^4.5.2"
+        "immutable": ">= 3",
+        "lodash.forin": ">= 4",
+        "lodash.get": ">= 4",
+        "lodash.includes": ">= 4",
+        "lodash.isempty": ">= 4",
+        "lodash.isobject": ">= 3",
+        "lodash.isstring": ">= 4",
+        "lodash.isundefined": ">= 3",
+        "lodash.pickby": ">= 4",
+        "lodash.set": ">= 4",
+        "lodash.unset": ">= 4"
     },
     "devDependencies": {
         "babel-cli": "^6.26.0",
