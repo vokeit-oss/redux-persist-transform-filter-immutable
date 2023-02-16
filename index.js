@@ -1,4 +1,4 @@
-import { Iterable, Map } from 'immutable';
+import { isCollection, Map } from 'immutable';
 import forIn from 'lodash.forin';
 import get from 'lodash.get';
 import includes from 'lodash.includes';
@@ -60,7 +60,7 @@ export function createBlacklistFilter(reducerName, inboundPaths, outboundPaths) 
 function filterObject({path, filterFunction = () => true}, state, iterable) {
     const value = iterable ? state.getIn(path) : get(state, path);
     
-    return (Array.isArray(value) || Iterable.isIterable(value)) ? value.filter(filterFunction) : pickBy(value, filterFunction);
+    return (Array.isArray(value) || isCollection(value)) ? value.filter(filterFunction) : pickBy(value, filterFunction);
 }
 
 
@@ -70,7 +70,7 @@ export function persistFilter(state, paths = [], transformType = 'whitelist') {
     }
     
     const blacklist = ('blacklist' === transformType);
-    const iterable  = Iterable.isIterable(state);
+    const iterable  = isCollection(state);
     let subset      = iterable ? Map(blacklist ? state : {}) : (blacklist ? Object.assign({}, state) : {});
     paths           = isString(paths) ? [paths] : paths;
     
